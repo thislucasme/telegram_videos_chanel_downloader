@@ -9,6 +9,14 @@ load_dotenv()
 api_id = os.getenv("API_ID")
 api_hash = os.getenv("API_HASH")
 phone_number = os.getenv("PHONE_NUMBER")
+id_canal = os.getenv("CHANNEL_ID")
+
+def criar_pasta_se_nao_existir(nome_pasta):
+    if not os.path.exists(nome_pasta):
+        os.makedirs(nome_pasta)
+        print(f'A pasta "{nome_pasta}" foi criada com sucesso.')
+    else:
+        print(f'A pasta "{nome_pasta}" já existe.')
 
 async def salvar_mensagens(start_message, end_message):
     with open('historico.txt', 'w') as arquivo:
@@ -16,6 +24,7 @@ async def salvar_mensagens(start_message, end_message):
         arquivo.write("Terminou em: {}\n".format(end_message))
 
 async def download_videos(channel_id, start_message=0, end_message=None):
+    criar_pasta_se_nao_existir("videos")
     async with TelegramClient('session_name', api_id, api_hash) as client:
         # Conecta ao Telegram
         await client.start(phone=phone_number)
@@ -82,6 +91,6 @@ async def menu(channel_id):
         print("Opção inválida.")
 
 if __name__ == '__main__':
-    channel_id = '-1001850460747'  # Substitua pelo ID do canal desejado
+    channel_id = id_canal  # Substitua pelo ID do canal desejado
     import asyncio
     asyncio.run(menu(channel_id))
