@@ -94,3 +94,4 @@ if __name__ == '__main__':
     channel_id = id_canal  # Substitua pelo ID do canal desejado
     import asyncio
     asyncio.run(menu(channel_id))
+#comentario
